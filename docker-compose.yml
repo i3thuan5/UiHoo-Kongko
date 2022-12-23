@@ -1,0 +1,20 @@
+version: '3.5'
+
+services:
+  nginx:
+    image: nginx:1-alpine
+    depends_on:
+      - gunicorn
+    volumes:
+      - "html:/usr/share/nginx/html/:ro"
+    networks:
+      - nginx-bridge
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST:-uihoo.ithuan.tw}
+      LETSENCRYPT_HOST: ${VIRTUAL_HOST:-uihoo.ithuan.tw}
+      LETSENCRYPT_EMAIL: "ithuan@ithuan.tw"
+    restart: always
+
+networks:
+  nginx-bridge:
+    external: true
