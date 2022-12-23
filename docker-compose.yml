@@ -3,10 +3,9 @@ version: '3.5'
 services:
   nginx:
     image: nginx:1-alpine
-    depends_on:
-      - gunicorn
     volumes:
-      - "html:/usr/share/nginx/html/:ro"
+      - "./nginx/:/etc/nginx/conf.d:ro"
+      - "./html/:/usr/share/nginx/html/:ro"
     networks:
       - nginx-bridge
     environment:
